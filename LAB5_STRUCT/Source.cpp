@@ -1,60 +1,60 @@
-#include <iostream>
-#include <fstream>
-using namespace std;
-//some struct
-struct SOLD_AIR_TICKET
-{
-	int FLICHT_NUMBER;
-	char* SNP = new char[60];
-	char* DESTINATION = new char[40];
-	int FLIGHT_DURATION_IN_MINUTES;
-	int NUMBER_STRING;
-};
-//some functions
-SOLD_AIR_TICKET NUMBER_OF_LINES()// count the lines in a file
-{
-	SOLD_AIR_TICKET FILE_L;
-	char* str = new char[75];
-	FILE_L.NUMBER_STRING = 0;
-	ifstream count("D:\\who\\tickets_info.txt");
-	while (!count.eof())
-	{
-		count.getline(str, 75, '\n');
-		FILE_L.NUMBER_STRING++;
+#include <stdio.h>
+#include <stdlib.h> /* prototype exit() */
+#include <string.h>
+#define ROWS 7
+#define COLS 20
+void file_open(void);
+FILE* file_in;
+char ch, arr_str[ROWS][COLS];
+int j, i, count = 0;
+
+int main(int agrc, char* argv[]) {
+	file_open();
+	for (j = 0; j < ROWS; ++j) {
+		for (i = 0; (ch = getc(file_in)) != '\n' && (ch != EOF); ++i) {
+			arr_str[j][i] = ch; // заполнение строки
+		} //конец внутреннего for
+		if (ch == EOF) {
+			puts("достигнут конец файла, выход.");
+			fprintf(stdout, "count is: %i \n", count);
+			break;
+		} // конец if
+		else {
+			arr_str[j][i] = '\0';
+			++count;
+		} // конец else
+
+	} // конец внешнего for
+	fclose(file_in);
+	/* вывод массива на консоль */
+	fprintf(stdout, "Из файла считано %i строк, которые имеют вид:\n", count);
+	puts(""); // пропуск строки
+	for (j = 0; j < count; ++j) {
+		fprintf(stdout, "%s\n", arr_str[j]);
 	}
-	count.close();
-	delete []str;
-	return FILE_L;
+	puts(""); // пропуск строки
+	puts("Программа завершена.");
+	exit(EXIT_SUCCESS);
 }
 
-SOLD_AIR_TICKET LOAD_ALL_INFORMATION()
-{
-	SOLD_AIR_TICKET FILE;
-	char* str = new char[75];
-	FILE.NUMBER_STRING = 0;
-	ifstream lines("D:\\who\\tickets_info.txt");
-	/*
-	for (size_t i = 0; i < length; i++)
-	{
-		
+void file_open(void) {
+	if ((file_in = fopen("file_in", "r")) == NULL) {
+		fprintf(stdout, "%s\n", "не могу отрыть файл для чтения");
+		exit(EXIT_FAILURE);
 	}
-	*/
-	lines.close();
-	delete[]str;
-	return FILE;
 }
+
 /*
-SOLD_AIR_TICKET SEARCH_BY_SURNAME()
-{
+Вывод на консоль:
+Из файла считано 7 строк, которые имеют вид:
 
-}
-SOLD_AIR_TICKET LOAD_INFORMATION_LAST_THREE_HOURS()
-{
+I am a human 1
+I am a 2 human`s 2
+I am a 3 human 3
+Nmjh## ___ 987 ht!
+5555555555555555
+66666666666666
+77777777777777
 
-}
+Программа завершена.
 */
-int main()
-{
-	SOLD_AIR_TICKET lines_number = NUMBER_OF_LINES();
-	return 0;
-}
