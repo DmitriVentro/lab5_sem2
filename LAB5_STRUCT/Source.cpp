@@ -1,14 +1,17 @@
+#define _CRT_SECURE_NO_WARNINGS
 #include <stdio.h>
 #include <stdlib.h> /* prototype exit() */
 #include <string.h>
-#define ROWS 7
-#define COLS 20
+#include <iostream>
+#define ROWS 
+#define COLS 75
 void file_open(void);
 FILE* file_in;
 char ch, arr_str[ROWS][COLS];
 int j, i, count = 0;
 
 int main(int agrc, char* argv[]) {
+	setlocale(LC_ALL, "");
 	file_open();
 	for (j = 0; j < ROWS; ++j) {
 		for (i = 0; (ch = getc(file_in)) != '\n' && (ch != EOF); ++i) {
@@ -38,7 +41,7 @@ int main(int agrc, char* argv[]) {
 }
 
 void file_open(void) {
-	if ((file_in = fopen("file_in", "r")) == NULL) {
+	if ((file_in = fopen("D:\\who\\tickets_info.txt","r")) == NULL) {
 		fprintf(stdout, "%s\n", "не могу отрыть файл для чтения");
 		exit(EXIT_FAILURE);
 	}
