@@ -7,30 +7,18 @@ using namespace std;
 //some struct
 struct SOLD_AIR_TICKET
 {
-	int FLICHT_NUMBER;
-	char* SNP = new char[60];
-	char* DESTINATION = new char[40];
-	int FLIGHT_DURATION_IN_MINUTES;
+	
+	string FLICHT_NUMBER = " "; 
+	string SNP = " ";
+	string DESTINATION = " ";
 };
-//some functions
-
-/*
-SOLD_AIR_TICKET SEARCH_BY_SURNAME()
-{
-
-}
-SOLD_AIR_TICKET LOAD_INFORMATION_LAST_THREE_HOURS()
-{
-
-}
-*/
 int main()
 {
-	setlocale(LC_ALL, "Russian");
+	setlocale(LC_ALL, " ");
 	string x;
 	SOLD_AIR_TICKET s;
 	ifstream fin;
-	fin.open("D:\\who\\books.txt");
+	fin.open("D:\\who\\tickets_info.txt");
 	int n(0);
 	if (fin.is_open())
 	{
@@ -47,8 +35,12 @@ int main()
 	{
 		getline(fin, x);
 		istringstream iss(x);
-		iss >> s.number >> s.surname >> s.price;
+		iss >> s.FLICHT_NUMBER >> s.SNP >> s.DESTINATION;
 		a[i] = s;
+	}
+	for (size_t i = 0; i < n; i++)
+	{
+		cout << 
 	}
 	return 0;
 }
