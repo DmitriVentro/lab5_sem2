@@ -4,43 +4,65 @@
 #include <sstream>
 #include <string>
 using namespace std;
-//some struct
 struct SOLD_AIR_TICKET
 {
 	
 	string FLICHT_NUMBER = " "; 
 	string SNP = " ";
 	string DESTINATION = " ";
+	string DURATION_IN_MINUTES = " ";
 };
+void SHOW_ALL_TICKETS(int n, SOLD_AIR_TICKET* ARRAY)
+{
+	for (size_t i = 0; i < n; i++)
+	{
+		cout << ARRAY[i].FLICHT_NUMBER << " "
+			 << ARRAY[i].SNP << " "
+			 << ARRAY[i].DESTINATION << " "
+			 << ARRAY[i].DURATION_IN_MINUTES;
+		cout << endl;
+	}
+}
 int main()
 {
 	setlocale(LC_ALL, " ");
 	string x;
-	SOLD_AIR_TICKET s;
+	SOLD_AIR_TICKET PART;
 	ifstream fin;
 	fin.open("D:\\who\\tickets_info.txt");
 	int n(0);
 	if (fin.is_open())
 	{
-		while (!fin.eof()) //узнаем, сколько книг всего
+		while (!fin.eof())
 		{
 			string s;
 			getline(fin, s);
 			n++;
 		}
 	}
-	SOLD_AIR_TICKET* a = new SOLD_AIR_TICKET[n];
+	SOLD_AIR_TICKET* ARRAY = new SOLD_AIR_TICKET[n];
 	fin.seekg(0, ios_base::beg);
-	for (size_t i = 0; i < n; i++) //заносим данные в массив
+	for (size_t i = 0; i < n; i++) 
 	{
 		getline(fin, x);
 		istringstream iss(x);
-		iss >> s.FLICHT_NUMBER >> s.SNP >> s.DESTINATION;
-		a[i] = s;
+		iss >> PART.FLICHT_NUMBER >> PART.SNP >> PART.DESTINATION >> PART.DURATION_IN_MINUTES;
+		ARRAY[i] = PART;
 	}
-	for (size_t i = 0; i < n; i++)
+
+	int choice;
+	cin >> choice;
+	switch (choice)
 	{
-		cout << 
+	case 1:
+		SHOW_ALL_TICKETS(n, ARRAY);
+		break;
+	case 2:
+		cout << "suck:)";
+	default:
+		break;
 	}
+	
+	
 	return 0;
 }
