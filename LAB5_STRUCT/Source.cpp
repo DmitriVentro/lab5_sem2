@@ -1,63 +1,76 @@
-#define _CRT_SECURE_NO_WARNINGS
-#include <stdio.h>
-#include <stdlib.h> /* prototype exit() */
-#include <string.h>
+#include <algorithm>
 #include <iostream>
-#define ROWS 
-#define COLS 75
-void file_open(void);
-FILE* file_in;
-char ch, arr_str[ROWS][COLS];
-int j, i, count = 0;
+#include <fstream>
+#include <sstream>
+#include <string>
 
-int main(int agrc, char* argv[]) {
-	setlocale(LC_ALL, "");
-	file_open();
-	for (j = 0; j < ROWS; ++j) {
-		for (i = 0; (ch = getc(file_in)) != '\n' && (ch != EOF); ++i) {
-			arr_str[j][i] = ch; // заполнение строки
-		} //конец внутреннего for
-		if (ch == EOF) {
-			puts("достигнут конец файла, выход.");
-			fprintf(stdout, "count is: %i \n", count);
-			break;
-		} // конец if
-		else {
-			arr_str[j][i] = '\0';
-			++count;
-		} // конец else
+using namespace std;
 
-	} // конец внешнего for
-	fclose(file_in);
-	/* вывод массива на консоль */
-	fprintf(stdout, "Из файла считано %i строк, которые имеют вид:\n", count);
-	puts(""); // пропуск строки
-	for (j = 0; j < count; ++j) {
-		fprintf(stdout, "%s\n", arr_str[j]);
-	}
-	puts(""); // пропуск строки
-	puts("Программа завершена.");
-	exit(EXIT_SUCCESS);
+struct bookinfo //структура инфы о книге
+{
+	string number = " "; //номер чит. билета
+	//string title = " "; //название книги
+	string surname = " "; //фамилия автора
+	float price = 0; //цена книги
+};
+
+bool cmpByAuthor(const bookinfo& r1, const bookinfo& r2) //сравнение по фамилии автора
+{
+	return r1.surname < r2.surname;
 }
 
-void file_open(void) {
-	if ((file_in = fopen("D:\\who\\tickets_info.txt","r")) == NULL) {
-		fprintf(stdout, "%s\n", "не могу отрыть файл для чтения");
-		exit(EXIT_FAILURE);
+int main()
+{
+	setlocale(LC_ALL, "Russian");
+	string x;
+	bookinfo s;
+	ifstream fin;
+	fin.open("D:\\who\\books.txt");
+	int n(0);
+	if (fin.is_open())
+	{
+		while (!fin.eof()) //узнаем, сколько книг всего
+		{
+			string s;
+			getline(fin, s);
+			n++;
+		}
+	}
+	bookinfo* a = new bookinfo[n];
+	fin.seekg(0, ios_base::beg);
+	for (size_t i = 0; i < n; i++) //заносим данные в массив
+	{
+		getline(fin, x);
+		istringstream iss(x);
+		iss >> s.number >> s.surname >> s.price;
+		a[i] = s;
+	}
+	cout << "Информация о всех взятых книгах:\nНомер-Автор-Название-Цена:\n" << endl;
+	for (size_t i = 0; i < n; i++)
+	{
+		
+			cout << a[i].number << " "
+				<< a[i].surname << " "
+				<< a[i].price << " " << endl;
+		
+	}
+	cout << "\nИнформация о книгах автора Толстого, которые не взяли:\nАвтор-Название-Цена:\n" << endl;
+	for (size_t i = 0; i < n; i++)
+	{
+		if (a[i].number == "NOTTAKEN")
+		{
+			cout << a[i].surname << " "
+				<< a[i].price << " " << endl;
+		}
+	}
+	cout << "\nИнформация о книгах, чья стоимость не превышает 1000р, но больше 100р:\nАвтор-Название-Цена:\n" << endl;
+	for (size_t i = 0; i < n; i++)
+	{
+		sort(a, a + n, cmpByAuthor);
+		if (a[i].price < 1000 && a[i].price > 100)
+		{
+			cout << a[i].surname << " "
+				<< a[i].price << " " << endl;
+		}
 	}
 }
-
-/*
-Вывод на консоль:
-Из файла считано 7 строк, которые имеют вид:
-
-I am a human 1
-I am a 2 human`s 2
-I am a 3 human 3
-Nmjh## ___ 987 ht!
-5555555555555555
-66666666666666
-77777777777777
-
-Программа завершена.
-*/
