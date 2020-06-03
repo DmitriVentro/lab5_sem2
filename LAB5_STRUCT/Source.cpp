@@ -11,38 +11,7 @@ struct SOLD_AIR_TICKET
 	int NUMBER_STRING;
 };
 //some functions
-SOLD_AIR_TICKET NUMBER_OF_LINES()// count the lines in a file
-{
-	SOLD_AIR_TICKET FILE_L;
-	char* str = new char[75];
-	FILE_L.NUMBER_STRING = 0;
-	ifstream count("D:\\who\\tickets_info.txt");
-	while (!count.eof())
-	{
-		count.getline(str, 75, '\n');
-		FILE_L.NUMBER_STRING++;
-	}
-	count.close();
-	delete []str;
-	return FILE_L;
-}
 
-SOLD_AIR_TICKET LOAD_ALL_INFORMATION()
-{
-	SOLD_AIR_TICKET FILE;
-	char* str = new char[75];
-	FILE.NUMBER_STRING = 0;
-	ifstream lines("D:\\who\\tickets_info.txt");
-	/*
-	for (size_t i = 0; i < length; i++)
-	{
-		
-	}
-	*/
-	lines.close();
-	delete[]str;
-	return FILE;
-}
 /*
 SOLD_AIR_TICKET SEARCH_BY_SURNAME()
 {
@@ -55,6 +24,29 @@ SOLD_AIR_TICKET LOAD_INFORMATION_LAST_THREE_HOURS()
 */
 int main()
 {
-	SOLD_AIR_TICKET lines_number = NUMBER_OF_LINES();
+	setlocale(LC_ALL, "Russian");
+	string x;
+	SOLD_AIR_TICKET s;
+	ifstream fin;
+	fin.open("D:\\who\\books.txt");
+	int n(0);
+	if (fin.is_open())
+	{
+		while (!fin.eof()) //узнаем, сколько книг всего
+		{
+			string s;
+			getline(fin, s);
+			n++;
+		}
+	}
+	bookinfo* a = new bookinfo[n];
+	fin.seekg(0, ios_base::beg);
+	for (size_t i = 0; i < n; i++) //заносим данные в массив
+	{
+		getline(fin, x);
+		istringstream iss(x);
+		iss >> s.number >> s.surname >> s.price;
+		a[i] = s;
+	}
 	return 0;
 }
