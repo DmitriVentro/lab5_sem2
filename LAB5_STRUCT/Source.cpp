@@ -50,7 +50,8 @@ int main()
 		iss >> PART.FLICHT_NUMBER >> PART.SNP >> PART.DESTINATION >> PART.DURATION_IN_MINUTES;
 		ARRAY[i] = PART;
 	}
-	cout << "1. Upload information about all tickets sold and display.\n"
+	cout << "Variant 2, Lab Structure\n"
+		 << "1. Upload information about all tickets sold and display.\n"
 		 << "2. Find out on which flights passengers bought tickets by the name of Sidorov.\n"
 		 << "3. Display information on all tickets for flights lasting more than three hours.\n"
 		 << "Data must be sorted by passenger's last name\n"
@@ -110,6 +111,7 @@ void SEARCH_SURNAME(int n, SOLD_AIR_TICKET* ARRAY)
 				 << ARRAY[i].DURATION_IN_MINUTES;
 			cout << "\n\n";
 		}
+		
 	}
 }
 void SORT_N_MINUTES(int n, SOLD_AIR_TICKET* ARRAY)
