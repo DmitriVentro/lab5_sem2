@@ -12,17 +12,7 @@ struct SOLD_AIR_TICKET
 	string DESTINATION = " ";
 	string DURATION_IN_MINUTES = " ";
 };
-void SHOW_ALL_TICKETS(int n, SOLD_AIR_TICKET* ARRAY)
-{
-	for (size_t i = 0; i < n; i++)
-	{
-		cout << ARRAY[i].FLICHT_NUMBER << " "
-			 << ARRAY[i].SNP << " "
-			 << ARRAY[i].DESTINATION << " "
-			 << ARRAY[i].DURATION_IN_MINUTES;
-		cout << endl;
-	}
-}
+void SHOW_ALL_TICKETS(int n, SOLD_AIR_TICKET* ARRAY);//show all tickets in your file
 int main()
 {
 	setlocale(LC_ALL, " ");
@@ -65,4 +55,19 @@ int main()
 	
 	
 	return 0;
+}
+
+void SHOW_ALL_TICKETS(int n, SOLD_AIR_TICKET* ARRAY)
+{
+	{
+		cout << "Flight number/Initials Of The Passenger/Destination/Duration In Minutes\n\n";
+		for (size_t i = 0; i < n; i++)
+		{
+			cout << " " << ARRAY[i].FLICHT_NUMBER << " "
+				 << ARRAY[i].SNP << " "
+				 << ARRAY[i].DESTINATION << " "
+				 << ARRAY[i].DURATION_IN_MINUTES;
+			cout << "\n\n";
+		}
+	}
 }
