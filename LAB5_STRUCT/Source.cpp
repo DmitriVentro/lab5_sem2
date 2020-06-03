@@ -9,7 +9,7 @@ using namespace std;
 struct bookinfo //структура инфы о книге
 {
 	string number = " "; //номер чит. билета
-	//string title = " "; //название книги
+	string title = " "; //название книги
 	string surname = " "; //фамилия автора
 	float price = 0; //цена книги
 };
@@ -25,7 +25,7 @@ int main()
 	string x;
 	bookinfo s;
 	ifstream fin;
-	fin.open("D:\\who\\books.txt");
+	fin.open("File.txt");
 	int n(0);
 	if (fin.is_open())
 	{
@@ -42,24 +42,27 @@ int main()
 	{
 		getline(fin, x);
 		istringstream iss(x);
-		iss >> s.number >> s.surname >> s.price;
+		iss >> s.number >> s.title >> s.surname >> s.price;
 		a[i] = s;
 	}
 	cout << "Информация о всех взятых книгах:\nНомер-Автор-Название-Цена:\n" << endl;
 	for (size_t i = 0; i < n; i++)
 	{
-		
+		if (a[i].number != "NOTTAKEN")
+		{
 			cout << a[i].number << " "
 				<< a[i].surname << " "
+				<< a[i].title << " "
 				<< a[i].price << " " << endl;
-		
+		}
 	}
 	cout << "\nИнформация о книгах автора Толстого, которые не взяли:\nАвтор-Название-Цена:\n" << endl;
 	for (size_t i = 0; i < n; i++)
 	{
-		if (a[i].number == "NOTTAKEN")
+		if (a[i].number == "NOTTAKEN" && a[i].surname == "Tolstoj")
 		{
 			cout << a[i].surname << " "
+				<< a[i].title << " "
 				<< a[i].price << " " << endl;
 		}
 	}
@@ -70,6 +73,7 @@ int main()
 		if (a[i].price < 1000 && a[i].price > 100)
 		{
 			cout << a[i].surname << " "
+				<< a[i].title << " "
 				<< a[i].price << " " << endl;
 		}
 	}
