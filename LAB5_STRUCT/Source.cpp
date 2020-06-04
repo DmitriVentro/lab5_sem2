@@ -19,7 +19,7 @@ void SEARCH_SURNAME(int n, SOLD_AIR_TICKET* ARRAY);
 Data must be sorted by passenger's last name.*/
 void SORT_N_MINUTES(int n, SOLD_AIR_TICKET* ARRAY);
 
-bool cmpByAuthor(const SOLD_AIR_TICKET& r1, const SOLD_AIR_TICKET& r2) //сравнение по фамилии автора
+bool cmpByAuthor(const SOLD_AIR_TICKET& r1, const SOLD_AIR_TICKET& r2) 
 {
 	return r1.SNP < r2.SNP;
 }
